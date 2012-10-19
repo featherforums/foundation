@@ -30,7 +30,23 @@ class Base extends Controller {
 	{
 		$this->app = Facade::getFacadeApplication();
 
-		$this->layout = $this->app['view']->make('feather::template');
+		$this->layout = $this->app['view']->make('feather::theme');
+	}
+
+	/**
+	 * Process a controller action response.
+	 *
+	 * @param  Illuminate\Routing\Router  $router
+	 * @param  string                     $method
+	 * @param  mixed                      $response
+	 * @return Symfony\Component\HttpFoundation\Response
+	 */
+	protected function processResponse($router, $method, $response)
+	{
+		// The response needs to be placed within the content of the layout.
+		$response = $this->layout->with('content', $response);
+
+		return parent::processResponse($router, $method, $response);
 	}
 
 }
