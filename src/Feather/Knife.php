@@ -13,7 +13,10 @@ class Knife extends BladeCompiler {
 	public function compileString($value)
 	{
 		$this->compilers = array_merge($this->compilers, array(
-			'Assignments'
+			'Assignments',
+			'GearEvents',
+			'InlineErrors',
+			'Errors'
 		));
 
 		return parent::compileString($value);
@@ -64,9 +67,7 @@ class Knife extends BladeCompiler {
 	 */
 	public function compileErrors($value)
 	{
-		$pattern = $this->createMatcher('errors');
-
-		return preg_replace($pattern, '$1<?php echo $errors->all() ? view("feather::errors.page", array("errors" => $errors->all())) : null; ?>', $value);
+		return str_replace('@errors', '<?php echo $errors->all() ? view("feather::errors.page", array("errors" => $errors->all())) : null; ?>', $value);
 	}
 
 }
