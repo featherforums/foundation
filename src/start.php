@@ -1,5 +1,7 @@
 <?php namespace Feather;
 
+use DB;
+
 /*
 |--------------------------------------------------------------------------
 | Path to Feather
@@ -24,7 +26,9 @@ define('FEATHER_DATABASE', 'feather');
 
 $app['config']->set('database.connections.' . FEATHER_DATABASE, $app['config']->get('feather.database'));
 
-$app['feather']->loadConfig();
+Models\Base::addConnection(FEATHER_DATABASE, DB::connection('feather'));
+
+$app['feather']->registerConfig();
 
 /*
 |--------------------------------------------------------------------------
@@ -60,8 +64,4 @@ require $app['feather']['path'] . 'facades.php';
 |
 */
 
-$paths = array($app['feather']['theme']->getPath(), $app['feather']['path'] . 'Feather/Views');
-
-$app['view']->addNamespace('feather', $paths);
-
-$app['feather']['theme']->prepTheme();
+$app['feather']['theme']->prepareTheme();
