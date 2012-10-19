@@ -12,7 +12,7 @@ class Application extends Container {
 	 * 
 	 * @return void
 	 */
-	public function loadConfig()
+	public function registerConfig()
 	{
 		Cache::forget('config');
 
