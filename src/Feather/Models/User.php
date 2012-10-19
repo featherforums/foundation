@@ -1,4 +1,4 @@
-<?php namespace Feather\Core;
+<?php namespace Feather\Models;
 
 use Str;
 use Hash;
@@ -10,14 +10,14 @@ class User extends Base {
 	 * 
 	 * @var string
 	 */
-	public static $table = 'users';
+	public $table = 'users';
 
 	/**
 	 * Timestamps are enabled.
 	 * 
 	 * @var bool
 	 */
-	public static $timestamps = true;
+	public $timestamps = true;
 
 	/**
 	 * A user can have many and belong to many roles.
