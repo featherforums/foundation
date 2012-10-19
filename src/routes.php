@@ -10,8 +10,3 @@ return array(
 
 	'get (:feather)' => array('as' => 'feather', 'uses' => 'Feather\Controllers\Home@showHomepage')
 );
-
-Route::after(function($response)
-{
-	dd('here');
-});
