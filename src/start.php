@@ -63,3 +63,5 @@ require $app['feather']['path'] . 'facades.php';
 $paths = array($app['feather']['theme']->getPath(), $app['feather']['path'] . 'Feather/Views');
 
 $app['view']->addNamespace('feather', $paths);
+
+$app['feather']['theme']->prepTheme();
