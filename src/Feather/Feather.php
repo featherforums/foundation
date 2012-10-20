@@ -1,8 +1,9 @@
 <?php namespace Feather;
 
 use Illuminate\Container;
+use Illuminate\Foundation\Application;
 
-class Application extends Container {
+class Feather extends Container {
 
 	/**
 	 * Laravel application instance.
@@ -17,7 +18,7 @@ class Application extends Container {
 	 * @param  Illuminate\Foundation\Application  $app
 	 * @return void
 	 */
-	public function __construct($app)
+	public function __construct(Application $app)
 	{
 		$this->app = $app;
 	}

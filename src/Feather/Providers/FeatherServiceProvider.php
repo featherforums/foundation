@@ -1,7 +1,7 @@
 <?php namespace Feather\Providers;
 
+use Feather\Feather;
 use RuntimeException;
-use Feather\Application;
 use Illuminate\Filesystem;
 use Illuminate\Support\ServiceProvider;
 
@@ -17,7 +17,7 @@ class FeatherServiceProvider extends ServiceProvider {
 	{
 		$app['feather'] = $app->share(function($app)
 		{
-			return new Application($app);
+			return new Feather($app);
 		});
 
 		// Bootstrap a lot of the Feather components by requiring the Feather start script.
