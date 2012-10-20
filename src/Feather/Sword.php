@@ -2,7 +2,7 @@
 
 use Illuminate\View\Compilers\BladeCompiler;
 
-class Knife extends BladeCompiler {
+class Sword extends BladeCompiler {
 
 	/**
 	 * Compile the given Blade template contents.

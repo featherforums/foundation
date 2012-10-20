@@ -1,9 +1,9 @@
 <?php
 
 use Mockery as m;
-use Feather\Knife;
+use Feather\Sword;
 
-class KnifeCompilerTest extends PHPUnit_Framework_TestCase {
+class SwordCompilerTest extends PHPUnit_Framework_TestCase {
 
 	public function tearDown()
 	{
@@ -13,7 +13,7 @@ class KnifeCompilerTest extends PHPUnit_Framework_TestCase {
 
 	public function testAssignmentsAreCompiled()
 	{
-		$knife = new Knife($this->getFiles(), __DIR__);
+		$knife = new Sword($this->getFiles(), __DIR__);
 
 		$this->assertEquals('<?php $foo = \'bar\'; ?>', $knife->compileString('@assign($foo, \'bar\')'));
 		$this->assertEquals('<?php $foo = $bar; ?>', $knife->compileString('@assign($foo, $bar)'));
@@ -22,7 +22,7 @@ class KnifeCompilerTest extends PHPUnit_Framework_TestCase {
 
 	public function testGearEventsAreCompiled()
 	{
-		$knife = new Knife($this->getFiles(), __DIR__);
+		$knife = new Sword($this->getFiles(), __DIR__);
 
 		$expected = '<?php echo Feather\Gear::fire(\'foo\'); ?>';
 
@@ -32,7 +32,7 @@ class KnifeCompilerTest extends PHPUnit_Framework_TestCase {
 
 	public function testInlineErrorsAreCompiled()
 	{
-		$knife = new Knife($this->getFiles(), __DIR__);
+		$knife = new Sword($this->getFiles(), __DIR__);
 
 		$expected = '<?php echo $errors->has(\'foo\') ? view("feather::errors.inline", array("error" => $errors->first(\'foo\'))) : null; ?>';
 
@@ -42,7 +42,7 @@ class KnifeCompilerTest extends PHPUnit_Framework_TestCase {
 
 	public function testErrorsAreCompiled()
 	{
-		$knife = new Knife($this->getFiles(), __DIR__);
+		$knife = new Sword($this->getFiles(), __DIR__);
 
 		$expected = '<?php echo $errors->all() ? view("feather::errors.page", array("errors" => $errors->all())) : null; ?>';
 
