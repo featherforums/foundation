@@ -54,11 +54,11 @@ class Base extends Eloquent {
 	 */
 	public function __get($key)
 	{
-		if(isset(static::$cachable[$key]) and !isset($this->attributes[$key]) and !isset($this->relations[$key]))
+		if (isset(static::$cachable[$key]) and ! isset($this->attributes[$key]) and ! isset($this->relations[$key]))
 		{
 			list($group, $foreign) = static::$cachable[$key];
 
-			if(Cache::has("{$group}_{$this->$foreign}"))
+			if (Cache::has("{$group}_{$this->$foreign}"))
 			{
 				return Cache::get("{$group}_{$this->$foreign}");
 			}

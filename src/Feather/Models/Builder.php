@@ -17,11 +17,11 @@ class Builder extends EloquentBuilder {
 		$key = explode('\\', get_class($this->model));
 
 		// If the item is cachable then we'll check to see if a cached version exists.
-		if(isset(Base::$cachable[$key = strtolower(array_pop($key))]))
+		if (isset(Base::$cachable[$key = strtolower(array_pop($key))]))
 		{
 			list($group, $foreign) = Base::$cachable[$key];
 
-			if(Cache::has("{$group}_{$id}"))
+			if (Cache::has("{$group}_{$id}"))
 			{
 				return Cache::get("{$group}_{$id}");
 			}
