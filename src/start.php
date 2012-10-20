@@ -7,7 +7,7 @@ use DB;
 | Path to Feather
 |--------------------------------------------------------------------------
 |
-| Define some important parts to Feather.
+| Define the path to Feather.
 |
 */
 
@@ -18,13 +18,13 @@ $app['feather']['path'] = __DIR__ . '/';
 | Feather Configuration
 |--------------------------------------------------------------------------
 |
-| Load in some important configuration items for Feather.
+| Register the Feather database connection and the configuration.
 |
 */
 
 define('FEATHER_DATABASE', 'feather');
 
-$app['config']->set('database.connections.' . FEATHER_DATABASE, $app['config']->get('feather.database'));
+$app['config']['database.connections.' . FEATHER_DATABASE] = $app['config']['feather.database'];
 
 Models\Base::addConnection(FEATHER_DATABASE, DB::connection('feather'));
 
@@ -39,7 +39,7 @@ $app['feather']->registerConfig();
 |
 */
 
-foreach($app['config']->get('feather.providers') as $provider)
+foreach ($app['config']['feather.providers'] as $provider)
 {
 	$app->register(new $provider);
 }

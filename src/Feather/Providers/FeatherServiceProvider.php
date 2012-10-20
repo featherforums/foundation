@@ -15,9 +15,9 @@ class FeatherServiceProvider extends ServiceProvider {
 	 */
 	public function register($app)
 	{
-		$app['feather'] = $app->share(function()
+		$app['feather'] = $app->share(function($app)
 		{
-			return new Application;
+			return new Application($app);
 		});
 
 		// Bootstrap a lot of the Feather components by requiring the Feather start script.
@@ -36,7 +36,7 @@ class FeatherServiceProvider extends ServiceProvider {
 	 */
 	public function getRoutes($files, $path)
 	{
-		if(!$files->exists($path))
+		if ( ! $files->exists($path))
 		{
 			throw new RuntimeException('Could not locate Feather routes file.');
 		}
@@ -60,13 +60,21 @@ class FeatherServiceProvider extends ServiceProvider {
 		$handles = $config['feather.handles'];
 
 		// Spin through each of the routes and replace the placeholder with Feather's handler.
-		foreach($this->getRoutes($files, $path) as $route => $action)
+		foreach ($this->getRoutes($files, $path) as $route => $action)
 		{
 			list($verb, $uri) = explode(' ', $route);
 
 			$uri = ltrim(str_replace('(:feather)', $handles, $uri), '/');
 
-			$router->$verb($uri ?: '/', $action);
+			switch ($verb)
+			{
+				case 'resource':
+					$router->resource($uri, $action['controller'], $action['options']);
+					break;
+				default:
+					$router->$verb($uri ?: '/', $action);
+					break;
+			}
 		}
 	}
 
