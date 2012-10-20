@@ -1,11 +1,26 @@
 <?php namespace Feather;
 
-use DB;
-use Cache;
-use Config;
 use Illuminate\Container;
 
 class Application extends Container {
+
+	/**
+	 * Laravel application instance.
+	 * 
+	 * @var Illuminate\Foundation\Application
+	 */
+	protected $app;
+
+	/**
+	 * Create a new feather application instance.
+	 * 
+	 * @param  Illuminate\Foundation\Application  $app
+	 * @return void
+	 */
+	public function __construct($app)
+	{
+		$this->app = $app;
+	}
 
 	/**
 	 * Load configuration from the database.
@@ -14,23 +29,11 @@ class Application extends Container {
 	 */
 	public function registerConfig()
 	{
-		Cache::forget('config');
+		$this->app['cache']->forget('config');
 
-		$items = Cache::rememberForever('config', function()
+		foreach (Models\Config::everything() as $item)
 		{
-			$config = array();
-
-			foreach(DB::connection(FEATHER_DATABASE)->table('config')->get() as $item)
-			{
-				array_set($config, $item->key, $item->value);
-			}
-
-			return $config;
-		});
-
-		foreach($items as $key => $item)
-		{
-			Config::set("feather.{$key}", $item);
+			$this->app['config']["feather.{$item->name}"] = $item->value;
 		}
 	}
 
@@ -41,11 +44,11 @@ class Application extends Container {
 	 */
 	public function reloadConfig()
 	{
-		Cache::forget('config');
+		$this->app['cache']->forget('config');
 
-		Config::set('feather', null);
+		$this->app['config']['feather'] = null;
 
-		$this->loadConfig();
+		$this->registerConfig();
 	}
 
 }
