@@ -23,7 +23,7 @@ class ThemeManager extends Manager {
 	 */
 	public function prepareTheme()
 	{
-		$this->app['view']->extend('knife', function($app)
+		$this->app['view']->extend('sword', function($app)
 		{
 			// The Compiler engine requires an instance of the CompilerInterface, which in
 			// this case will be the Blade compiler, so we'll first create the compiler
@@ -35,7 +35,7 @@ class ThemeManager extends Manager {
 			return new View\Environment($engine, $app['events']);
 		});
 
-		$this->app['config']->set('view.driver', 'knife');
+		$this->app['config']->set('view.driver', 'sword');
 
 		// Assign a namespace and some cascading paths so that view files are first searched
 		// for within a theme then within the core view directory.
