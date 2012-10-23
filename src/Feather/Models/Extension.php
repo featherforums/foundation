@@ -1,13 +1,15 @@
 <?php namespace Feather\Models;
 
-class Gear extends Base {
+use Cache;
+
+class Extension extends Base {
 
 	/**
 	 * Name of table.
 	 * 
 	 * @var string
 	 */
-	public $table = 'gears';
+	public $table = 'extensions';
 
 	/**
 	 * Timestamps are disabled.
@@ -17,13 +19,16 @@ class Gear extends Base {
 	public $timestamps = false;
 
 	/**
-	 * Return all gears that have been enabled.
+	 * Return all enabled extensions.
 	 * 
 	 * @return  array
 	 */
 	public static function enabled()
 	{
-		return static::where('enabled', '=', 1)->get();
+		return Cache::rememberForever('extensions', function()
+		{
+			return Extension::where('enabled', '=', 1)->get();
+		});
 	}
 
 }

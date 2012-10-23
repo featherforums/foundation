@@ -13,6 +13,17 @@ class Auth extends Facade {
 
 }
 
+class Extension extends Facade {
+
+	/**
+	 * Get the registered component.
+	 *
+	 * @return object
+	 */
+	protected static function getFacadeAccessor(){ return static::$app['feather']['extensions']; }
+
+}
+
 class Theme extends Facade {
 
 	/**

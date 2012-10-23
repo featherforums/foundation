@@ -1,9 +1,9 @@
 <?php namespace Feather\Providers;
 
-use Feather\Gear\Dispatcher;
+use Feather\Extensions\Dispatcher;
 use Illuminate\Support\ServiceProvider;
 
-class GearServiceProvider extends ServiceProvider {
+class ExtensionServiceProvider extends ServiceProvider {
 
 	/**
 	 * Register the service provider.
@@ -13,12 +13,12 @@ class GearServiceProvider extends ServiceProvider {
 	 */
 	public function register($app)
 	{
-		$app['feather']['gear'] = $app->share(function() use ($app)
+		$app['feather']['extensions'] = $app->share(function() use ($app)
 		{
-			return new Dispatcher;
+			return new Dispatcher($app);;
 		});
 
-		$app['feather']['gear']->registerGears();
+		$app['feather']['extensions']->registerExtensions();
 	}
 
 }
