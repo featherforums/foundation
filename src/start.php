@@ -7,11 +7,15 @@ use DB;
 | Path to Feather
 |--------------------------------------------------------------------------
 |
-| Define the path to Feather.
+| Define some of the paths used by Feather.
 |
 */
 
-$app['feather']['path'] = __DIR__ . '/';
+$app['feather']['path'] = __DIR__;
+
+$app['feather']['path.extensions'] = __DIR__ . '/Extensions';
+
+$app['feather']['path.themes'] = __DIR__ . '/Themes';
 
 /*
 |--------------------------------------------------------------------------
