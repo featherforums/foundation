@@ -15,7 +15,7 @@ class FeatherServiceProvider extends ServiceProvider {
 	 */
 	public function register($app)
 	{
-		$app['feather'] = $app->share(function($app)
+		$app['feather'] = $app->share(function() use ($app)
 		{
 			return new Feather($app);
 		});
