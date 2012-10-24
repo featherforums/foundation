@@ -1,5 +1,6 @@
 <?php namespace Feather\Providers;
 
+use Feather\Models\Extension;
 use Feather\Extensions\Dispatcher;
 use Illuminate\Support\ServiceProvider;
 
@@ -18,7 +19,7 @@ class ExtensionServiceProvider extends ServiceProvider {
 			return new Dispatcher($app);;
 		});
 
-		$app['feather']['extensions']->registerExtensions();
+		$app['feather']['extensions']->registerExtensions(Extension::enabled());
 	}
 
 }
