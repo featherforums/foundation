@@ -1,6 +1,6 @@
 <?php namespace Feather\Models;
 
-use Eloquent;
+use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Base extends Eloquent {
 
