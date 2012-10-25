@@ -70,6 +70,14 @@ class FeatherServiceProvider extends ServiceProvider {
 			switch ($verb)
 			{
 				case 'resource':
+					if ( ! is_array($action))
+					{
+						$action = array(
+							'controller' => $action,
+							'options' => array()
+						);
+					}
+
 					$app['router']->resource($uri, $action['controller'], $action['options']);
 					break;
 				default:
