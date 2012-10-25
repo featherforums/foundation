@@ -1,9 +1,9 @@
 <?php namespace Feather\Providers;
 
-use Feather\Managers\ThemeManager;
+use Feather\View;
 use Illuminate\Support\ServiceProvider;
 
-class ThemeServiceProvider extends ServiceProvider {
+class ViewServiceProvider extends ServiceProvider {
 
 	/**
 	 * Register the service provider.
@@ -13,9 +13,9 @@ class ThemeServiceProvider extends ServiceProvider {
 	 */
 	public function register($app)
 	{
-		$app['feather']['theme'] = $app->share(function() use ($app)
+		$app['feather']['view'] = $app->share(function() use ($app)
 		{
-			return new ThemeManager($app);
+			return new View($app['config'], $app['files'], $app['view']);
 		});
 	}
 
