@@ -57,7 +57,7 @@ foreach ($app['config']['feather.providers'] as $provider)
 |
 */
 
-require $app['feather']['path'] . 'facades.php';
+require $app['feather']['path'] . '/facades.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -68,4 +68,4 @@ require $app['feather']['path'] . 'facades.php';
 |
 */
 
-$app['feather']['theme']->prepareTheme();
+$app['feather']['view']->prepare(array('path' => $app['feather']['path'], 'path.themes' => $app['feather']['path.themes']));
