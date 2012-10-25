@@ -3,6 +3,7 @@
 use Feather\Feather;
 use RuntimeException;
 use Illuminate\Filesystem;
+use Feather\Console\PublishCommand;
 use Illuminate\Support\ServiceProvider;
 
 class FeatherServiceProvider extends ServiceProvider {
@@ -19,11 +20,13 @@ class FeatherServiceProvider extends ServiceProvider {
 		{
 			return new Feather($app);
 		});
+		
+		$this->registerCommands($app);
 
 		// Bootstrap a lot of the Feather components by requiring the Feather start script.
 		require __DIR__ . '/../../start.php';
 
-		$this->registerRoutes(__DIR__ . '/../../routes.php', $app['config'], $app['files'], $app['router']);
+		$this->registerRoutes($app, __DIR__ . '/../../routes.php');
 	}
 
 	/**
@@ -47,20 +50,18 @@ class FeatherServiceProvider extends ServiceProvider {
 	/**
 	 * Registers the routes with the router.
 	 * 
-	 * @param  string                        $path
-	 * @param  Illuminate\Config\Repository  $config
-	 * @param  Illuminate\Filesystem         $files
-	 * @param  Illuminate\Routing\Router     $router
+	 * @param  Illuminate\Foundation\Application  $app
+	 * @param  string                             $path
 	 * @return void
 	 */
-	public function registerRoutes($path, $config, $files, $router)
+	public function registerRoutes($app, $path)
 	{
 		// Feather can be configured to handle a given URI. By default Feather will handle all
 		// requests to the root directory.
-		$handles = $config['feather.handles'];
+		$handles = $app['config']['feather.handles'];
 
 		// Spin through each of the routes and replace the placeholder with Feather's handler.
-		foreach ($this->getRoutes($files, $path) as $route => $action)
+		foreach ($this->getRoutes($app['files'], $path) as $route => $action)
 		{
 			list($verb, $uri) = explode(' ', $route);
 
@@ -69,13 +70,27 @@ class FeatherServiceProvider extends ServiceProvider {
 			switch ($verb)
 			{
 				case 'resource':
-					$router->resource($uri, $action['controller'], $action['options']);
+					$app['router']->resource($uri, $action['controller'], $action['options']);
 					break;
 				default:
-					$router->$verb($uri ?: '/', $action);
+					$app['router']->$verb($uri ?: '/', $action);
 					break;
 			}
 		}
+	}
+
+	/**
+	 * Register the command line commands.
+	 * 
+	 * @param  Illuminate\Foundation\Application  $app
+	 * @return void
+	 */
+	public function registerCommands($app)
+	{
+		$app['command.feather.publish'] = $app->share(function() use ($app)
+		{
+			return new PublishCommand($app['files']);
+		});
 	}
 
 }
