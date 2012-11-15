@@ -9,7 +9,7 @@ class Home extends Base {
 	 * 
 	 * @return Illuminate\View\View
 	 */
-	public function homepage()
+	public function showHomepage()
 	{
 		return View::make('feather::homepage');
 	}	

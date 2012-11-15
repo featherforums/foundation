@@ -8,5 +8,5 @@ return array(
 	|--------------------------------------------------------------------------
 	*/
 
-	'get (:feather)' => array('as' => 'feather', 'uses' => 'Feather\Controllers\Home@homepage')
+	'get (:feather)' => array('as' => 'feather', 'uses' => 'Feather\Controllers\Home@showHomepage')
 );
