@@ -16,6 +16,10 @@ class FeatherServiceProvider extends ServiceProvider {
 	 */
 	public function register($app)
 	{
+		// Merge the Feather configuration with the default configuration file. This allows applications to
+		// override individual configuration keys.
+		$app['config']['feather'] = array_merge(require __DIR__.'/../../defaults.php', $app['config']->get('feather', array()));
+		
 		$app['feather'] = $app->share(function() use ($app)
 		{
 			return new Feather($app);
