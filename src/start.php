@@ -13,9 +13,9 @@ use DB;
 
 $app['feather']['path'] = __DIR__;
 
-$app['feather']['path.extensions'] = __DIR__ . '/Extensions';
+$app['feather']['path.extensions'] = __DIR__.'/Extensions';
 
-$app['feather']['path.themes'] = __DIR__ . '/Themes';
+$app['feather']['path.themes'] = __DIR__.'/Themes';
 
 /*
 |--------------------------------------------------------------------------
@@ -28,11 +28,9 @@ $app['feather']['path.themes'] = __DIR__ . '/Themes';
 
 define('FEATHER_DATABASE', 'feather');
 
-$app['config']['database.connections.' . FEATHER_DATABASE] = $app['config']['feather.database'];
+$app['config']['database.connections.'.FEATHER_DATABASE] = $app['config']['feather.database'];
 
-Models\Base::addConnection(FEATHER_DATABASE, DB::connection('feather'));
-
-$app['feather']->registerConfig();
+$app['feather']->registerDatabaseConfig();
 
 /*
 |--------------------------------------------------------------------------
@@ -68,4 +66,7 @@ require $app['feather']['path'] . '/facades.php';
 |
 */
 
-$app['feather']['view']->prepare(array('path' => $app['feather']['path'], 'path.themes' => $app['feather']['path.themes']));
+$app['feather']['view']->prepare(array(
+	'path'		  => $app['feather']['path'],
+	'path.themes' => $app['feather']['path.themes'])
+);

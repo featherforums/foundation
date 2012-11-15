@@ -28,9 +28,12 @@ class Feather extends Container {
 	 * 
 	 * @return void
 	 */
-	public function registerConfig()
+	public function registerDatabaseConfig()
 	{
-		$this->app['cache']->forget('config');
+		if ($this->app['cache']->has('config'))
+		{
+			$this->app['cache']->forget('config');
+		}
 
 		foreach (Models\Config::everything() as $item)
 		{
@@ -43,13 +46,13 @@ class Feather extends Container {
 	 * 
 	 * @return void
 	 */
-	public function reloadConfig()
+	public function reloadDatabaseConfig()
 	{
 		$this->app['cache']->forget('config');
 
 		$this->app['config']['feather'] = null;
 
-		$this->registerConfig();
+		$this->registerDatabaseConfig();
 	}
 
 }
