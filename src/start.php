@@ -13,7 +13,7 @@ use DB;
 
 $app['feather']['path'] = __DIR__;
 
-$app['feather']['path.extensions'] = __DIR__.'/Extensions';
+$app['feather']['path.extensions'] = __DIR__.'/Feather/Extensions';
 
 $app['feather']['path.themes'] = __DIR__.'/Themes';
 
