@@ -1,7 +1,7 @@
 {
-	"name": "feather/core",
+	"name": "feather/foundation",
 	"type": "library",
-	"description": "A lightweight, fully awesome forum built on the Laravel framework.",
+	"description": "A lightweight, fully awesome forum built on Laravel.",
 	"license": "BSD",
 	"authors": [
 		{
@@ -13,11 +13,11 @@
 	"require": {
 		"php": ">=5.3.0",
 		"feather/extensions": ">=1.0.0",
-		"feather/view": ">=1.0.0"
+		"feather/view": ">=1.0.0",
+		"illuminate/foundation": ">=1.0.0"
 	},
 	"require-dev": {
-		"mockery/mockery": "0.7.*",
-		"illuminate/foundation": ">=1.0.0"
+		"mockery/mockery": "0.7.*"
 	},
 	"autoload": {
 		"psr-0": {
