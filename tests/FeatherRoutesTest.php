@@ -16,6 +16,7 @@ class FeatherRoutesTest extends PHPUnit_Framework_TestCase {
 		$provider = m::mock('Feather\Providers\FeatherServiceProvider[getRoutes]');
 		$app['router'] = m::mock('Illuminate\Routing\Router[get,post,put,delete]');
 		$app['files'] = m::mock(new Illuminate\Filesystem);
+		$app['feather'] = new Feather\Feather($app);
 
 		$app['config'] = array('feather.handles' => '/');
 
