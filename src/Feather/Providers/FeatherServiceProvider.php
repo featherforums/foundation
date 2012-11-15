@@ -60,35 +60,7 @@ class FeatherServiceProvider extends ServiceProvider {
 	 */
 	public function registerRoutes($app, $path)
 	{
-		// Feather can be configured to handle a given URI. By default Feather will handle all
-		// requests to the root directory.
-		$handles = $app['config']['feather.handles'];
-
-		// Spin through each of the routes and replace the placeholder with Feather's handler.
-		foreach ($this->getRoutes($app['files'], $path) as $route => $action)
-		{
-			list($verb, $uri) = explode(' ', $route);
-
-			$uri = ltrim(str_replace('(:feather)', $handles, $uri), '/');
-
-			switch ($verb)
-			{
-				case 'resource':
-					if ( ! is_array($action))
-					{
-						$action = array(
-							'controller' => $action,
-							'options' => array()
-						);
-					}
-
-					$app['router']->resource($uri, $action['controller'], $action['options']);
-					break;
-				default:
-					$app['router']->$verb($uri ?: '/', $action);
-					break;
-			}
-		}
+		$app['feather']->parseRoutes($this->getRoutes($app['files'], $path));
 	}
 
 	/**
