@@ -1,6 +1,7 @@
 <?php namespace Feather\Controllers;
 
 use Controller;
+use Illuminate\View;
 use Illuminate\Container;
 use Illuminate\Support\Facade;
 use Illuminate\Routing\Router;
@@ -34,19 +35,22 @@ class Base extends Controller {
 	}
 
 	/**
-	 * Process a controller action response.
+	 * Call the given action with the given parameters.
 	 *
-	 * @param  Illuminate\Routing\Router  $router
-	 * @param  string                     $method
-	 * @param  mixed                      $response
-	 * @return Symfony\Component\HttpFoundation\Response
+	 * @param  string  $method
+	 * @param  array   $parameters
+	 * @return mixed
 	 */
-	protected function processResponse($router, $method, $response)
+	protected function directCallAction($method, $parameters)
 	{
-		// The response needs to be placed within the content of the layout.
-		$response = $this->layout->with('content', $response);
+		// If no response is returned by the controller method then we'll fall back to
+		// the layout that was bound in the constructor.
+		if ( ! $response = call_user_func_array(array($this, $method), $parameters))
+		{
+			$response = $this->layout;
+		}
 
-		return parent::processResponse($router, $method, $response);
+		return $response;
 	}
 
 }
