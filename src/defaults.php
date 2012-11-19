@@ -35,13 +35,14 @@ return array(
 	*/
 
 	'database' => array(
-		'host'	   => 'localhost',
-		'database' => 'feather',
-		'username' => 'root',
-		'password' => '',
-		'prefix'   => '',
-		'charset'  => 'utf8',
-		'driver'   => 'mysql'
+		'host'	    => 'localhost',
+		'database'  => 'feather',
+		'username'  => 'root',
+		'password'  => '',
+		'prefix'    => '',
+		'charset'   => 'utf8',
+		'collation' => 'utf8_general_ci',
+		'driver'    => 'mysql'
 	),
 
 	/*
