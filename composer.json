@@ -13,8 +13,8 @@
 	"require": {
 		"php": ">=5.3.0",
 		"illuminate/foundation": ">=1.0.0",
-		"feather/extensions": ">=1.0.0",
-		"feather/view": ">=1.0.0"
+		"feather/extensions": "*",
+		"feather/view": "*"
 	},
 	"require-dev": {
 		"mockery/mockery": "0.7.*"
