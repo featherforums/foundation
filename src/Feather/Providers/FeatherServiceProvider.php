@@ -3,8 +3,10 @@
 use Feather\Feather;
 use RuntimeException;
 use Illuminate\Filesystem;
-use Feather\Console\PublishCommand;
+use Feather\Console\FeatherCommand;
 use Illuminate\Support\ServiceProvider;
+
+define('FEATHER_VERSION', '1.0.0');
 
 class FeatherServiceProvider extends ServiceProvider {
 
@@ -71,9 +73,14 @@ class FeatherServiceProvider extends ServiceProvider {
 	 */
 	public function registerCommands($app)
 	{
-		$app['command.feather.publish'] = $app->share(function() use ($app)
+		$app['command.feather'] = $app->share(function()
 		{
-			return new PublishCommand($app['files']);
+			return new FeatherCommand;
+		});
+
+		$app['events']->listen('artisan.start', function($artisan)
+		{
+			$artisan->resolve('command.feather');
 		});
 	}
 
