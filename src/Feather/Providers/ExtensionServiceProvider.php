@@ -1,7 +1,7 @@
 <?php namespace Feather\Providers;
 
-use Feather\Models\Extension;
 use Feather\Extensions\Dispatcher;
+use Feather\Extensions\Console\FeatherExtensionCommand;
 use Illuminate\Support\ServiceProvider;
 
 class ExtensionServiceProvider extends ServiceProvider {
@@ -16,10 +16,29 @@ class ExtensionServiceProvider extends ServiceProvider {
 	{
 		$app['feather']['extensions'] = $app->share(function() use ($app)
 		{
-			return new Dispatcher($app);;
+			return new Dispatcher($app);
 		});
 
-		$app['feather']['extensions']->registerExtensions(Extension::enabled());
+		$this->registerCommands($app);
+	}
+
+	/**
+	 * Register the console commands.
+	 * 
+	 * @param  Illuminate\Foundation\Application  $app
+	 * @return void
+	 */
+	protected function registerCommands($app)
+	{
+		$app['command.feather.extension'] = $app->share(function()
+		{
+			return new FeatherExtensionCommand;
+		});
+
+		$app['events']->listen('artisan.start', function($artisan)
+		{
+			$artisan->resolve('command.feather.extension');
+		});
 	}
 
 }

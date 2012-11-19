@@ -1,7 +1,5 @@
 <?php namespace Feather;
 
-use DB;
-
 /*
 |--------------------------------------------------------------------------
 | Path to Feather
@@ -15,7 +13,7 @@ $app['feather']['path'] = __DIR__;
 
 $app['feather']['path.extensions'] = __DIR__.'/Feather/Extensions';
 
-$app['feather']['path.themes'] = __DIR__.'/Themes';
+$app['feather']['path.themes'] = __DIR__.'/Feather/Themes';
 
 /*
 |--------------------------------------------------------------------------
@@ -70,3 +68,14 @@ $app['feather']['view']->prepare(array(
 	'path'		  => $app['feather']['path'],
 	'path.themes' => $app['feather']['path.themes'])
 );
+
+/*
+|--------------------------------------------------------------------------
+| Feather Extensions
+|--------------------------------------------------------------------------
+|
+| Register the enabled extensions with Feather.
+|
+*/
+
+$app['feather']['extensions']->registerExtensions(Models\Extension::enabled());
