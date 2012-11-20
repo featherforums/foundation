@@ -1,7 +1,7 @@
 {
 	"name": "feather/foundation",
 	"type": "library",
-	"description": "A lightweight, fully awesome forum built on Laravel.",
+	"description": "",
 	"license": "BSD-3-Clause",
 	"authors": [
 		{
@@ -13,6 +13,7 @@
 	"require": {
 		"php": ">=5.3.0",
 		"illuminate/foundation": ">=1.0.0",
+		"feather/app": "*",
 		"feather/extensions": "*",
 		"feather/view": "*"
 	},
@@ -21,7 +22,7 @@
 	},
 	"autoload": {
 		"psr-0": {
-			"Feather": "src/"
+			"Feather\\Foundation": "src/"
 		}
 	},
 	"minimum-stability": "dev"
