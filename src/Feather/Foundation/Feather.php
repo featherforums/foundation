@@ -1,6 +1,7 @@
-<?php namespace Feather;
+<?php namespace Feather\Foundation;
 
 use Illuminate\Container;
+use Feather\Models\Config;
 use Illuminate\Foundation\Application;
 
 class Feather extends Container {
@@ -21,38 +22,6 @@ class Feather extends Container {
 	public function __construct(Application $app)
 	{
 		$this->app = $app;
-	}
-
-	/**
-	 * Load configuration from the database.
-	 * 
-	 * @return void
-	 */
-	public function registerDatabaseConfig()
-	{
-		if ($this->app['cache']->has('config'))
-		{
-			$this->app['cache']->forget('config');
-		}
-
-		foreach (Models\Config::everything() as $item)
-		{
-			$this->app['config']["feather.{$item->name}"] = $item->value;
-		}
-	}
-
-	/**
-	 * Reload the configuration from the database.
-	 * 
-	 * @return void
-	 */
-	public function reloadDatabaseConfig()
-	{
-		$this->app['cache']->forget('config');
-
-		$this->app['config']['feather'] = null;
-
-		$this->registerDatabaseConfig();
 	}
 
 	/**
