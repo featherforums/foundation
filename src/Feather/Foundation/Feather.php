@@ -36,7 +36,7 @@ class Feather extends Container {
 
 		// Feather can be configured to handle a given URI. By default Feather will handle all
 		// requests to the root directory.
-		$handles = $this->app['config']['feather.handles'];
+		$handles = $this->app['config']['feather::handles'];
 
 		// Spin through each of the routes and replace the placeholder with Feather's handler.
 		foreach ($routes as $route => $action)
