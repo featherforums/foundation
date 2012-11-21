@@ -1,7 +1,7 @@
 {
 	"name": "feather/foundation",
 	"type": "library",
-	"description": "",
+	"description": "Application foundation for Feather.",
 	"license": "BSD-3-Clause",
 	"authors": [
 		{
