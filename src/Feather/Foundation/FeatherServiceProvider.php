@@ -1,8 +1,6 @@
-<?php namespace Feather\Foundation\Providers;
+<?php namespace Feather\Foundation;
 
 use Illuminate\Filesystem;
-use Feather\Foundation\Feather;
-use Feather\Foundation\Console\FeatherCommand;
 use Illuminate\Support\ServiceProvider;
 
 class FeatherServiceProvider extends ServiceProvider {
@@ -20,7 +18,7 @@ class FeatherServiceProvider extends ServiceProvider {
 			return new Feather($app);
 		});
 
-		$app['feather']['path'] = __DIR__.'/../../../../../app/src/Feather';
+		$app['feather']['path'] = __DIR__.'/../../../../app/src/Feather';
 
 		// Bootstrap a lot of the Feather components by requiring the Feather start script.
 		require $app['feather']['path'].'/start.php';
@@ -38,7 +36,7 @@ class FeatherServiceProvider extends ServiceProvider {
 	{
 		$app['commands.feather'] = $app->share(function($app)
 		{
-			return new FeatherCommand;
+			return new Console\FeatherCommand;
 		});
 
 		$app['events']->listen('artisan.start', function($artisan)
